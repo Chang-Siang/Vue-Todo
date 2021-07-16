@@ -1,4 +1,8 @@
 # Vue Todo-App
+
+## Dome
+https://chang-siang.github.io/vue-todo/
+
 ## Project setup
 ```
 npm install
