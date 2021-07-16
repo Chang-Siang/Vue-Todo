@@ -4,6 +4,7 @@
       type="text"
       autofocus
       autocomplete="off"
+      class="form-control"
       v-model="newInput"
       v-on:keydown.enter="onItemAdd"
     />

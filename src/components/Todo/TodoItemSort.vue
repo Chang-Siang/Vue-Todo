@@ -1,6 +1,6 @@
 <template>
-  <button v-on:click="onItemSort">
-    {{ sortType }}
+  <button class="btn btn-success" v-on:click="onItemSort">
+    Sort by {{ sortType }}
   </button>
 </template>
 <script>

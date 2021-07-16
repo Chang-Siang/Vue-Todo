@@ -1,50 +1,71 @@
 <template>
-  <div class="todo">
-    <div class="header">
-      <h1>Todo</h1>
+  <div class="todo container">
+    <div class="row">
+      <div class="header col-12">
+        <h1 class="text-center white-text font-weight-bold">Todo</h1>
+      </div>
     </div>
     <hr />
-    <div>
-      <TodoInputForm @handleItemAdd="handleItemAdd" />
+    <div class="row">
+      <div class="col-12">
+        <TodoInputForm @handleItemAdd="handleItemAdd" />
+      </div>
     </div>
     <hr />
-    <TodoItemSort :sortType="sortType" @handleItemSort="handleItemSort" />
+    <div class="row">
+      <div class="col-12">
+        <TodoItemSort :sortType="sortType" @handleItemSort="handleItemSort" />
+      </div>
+    </div>
     <hr />
-    <div>
-      <div v-if="loading">Loading...</div>
-      <div v-else-if="error">An unexpected error has occurred.</div>
-      <ul>
-        <li v-for="item in items" :key="item.id">
-          <div v-if="item.isEditing">
-            <TodoEditForm
-              v-bind="item"
-              :key="item.id"
-              @handleItemUpdate="handleItemUpdate"
-            />
-          </div>
-          <div v-else>
-            <TodoItem
-              v-bind="item"
-              :key="item.id"
-              @handleItemDel="handleItemDel"
-              @handleItemEdit="handleItemEdit"
-              @handleItemUpdate="handleItemUpdate"
-            />
-          </div>
-        </li>
-      </ul>
+    <div class="row">
+      <div class="col-12">
+        <div v-if="loading">Loading...</div>
+        <div v-else-if="error">An unexpected error has occurred.</div>
+        <ul class="list-group">
+          <li
+            class="list-group-item list-group-item-action"
+            v-for="item in items"
+            :key="item.id"
+          >
+            <div v-if="item.isEditing">
+              <TodoEditForm
+                v-bind="item"
+                :key="item.id"
+                @handleItemUpdate="handleItemUpdate"
+              />
+            </div>
+            <div v-else>
+              <TodoItem
+                v-bind="item"
+                :key="item.id"
+                @handleItemDel="handleItemDel"
+                @handleItemEdit="handleItemEdit"
+                @handleItemUpdate="handleItemUpdate"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div class="col-12 alert alert-success" role="alert">
+      click to complete, double-click to edit.
     </div>
   </div>
 </template>
 
 <script>
+import "bootstrap/dist/css/bootstrap.css";
+import "glyphicons-only-bootstrap/css/bootstrap.min.css";
+
 import TodoItem from "./TodoItem";
 import TodoInputForm from "./TodoInputForm";
 import TodoEditForm from "./TodoEditForm";
-import TodoItemSort from "./TodoItemSort.vue";
+import TodoItemSort from "./TodoItemSort";
 
-// const ajaxUrl = "https://my-json-server.typicode.com/Chang-Siang/demo/";
-const ajaxUrl = "http://127.0.0.1:3020/";
+const ajaxUrl = "https://my-json-server.typicode.com/Chang-Siang/demo/";
+// const ajaxUrl = "http://127.0.0.1:3020/";
 
 export default {
   name: "Todo",
@@ -187,35 +208,32 @@ export default {
       }
     },
   },
-  beforeCreate() {
-    console.log("beforeCreate");
-  },
+  //   beforeCreate() {
+  // console.log("beforeCreate");
+  //   },
   created() {
     console.log("created");
   },
-  beforeMount() {
-    console.log("beforeMount");
-  },
+  //   beforeMount() {
+  // console.log("beforeMount");
+  //   },
   mounted() {
     console.log("mounted");
     this.loading = true;
     this.ajaxServerItemsLoad();
   },
-  beforeUpdate() {
-    console.log("beforeUpdate");
-  },
+  //   beforeUpdate() {
+  // console.log("beforeUpdate");
+  //   },
   updated() {
     console.log("updated");
   },
-  destroyed() {
-    console.log("destroyed");
-  },
+  //   destroyed() {
+  // console.log("destroyed");
+  //   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
 </style>

@@ -1,9 +1,13 @@
 <template>
-  <div v-on:dblclick="onItemEdit">
-    <span :class="{ completed: item.completed }" v-on:click="onItemComplete">
+  <div class="" v-on:dblclick="onItemEdit">
+    <div
+      :class="{ completed: item.completed }"
+      class="text-truncate"
+      v-on:click="onItemComplete"
+    >
       {{ item.title }}
-    </span>
-    <button v-on:click="onItemDel">Done</button>
+      <button class="close" v-on:click="onItemDel">×</button>
+    </div>
   </div>
 </template>
 <script>
