@@ -1,6 +1,6 @@
 # Vue Todo-App
 
-## Dome
+## Demo
 https://chang-siang.github.io/vue-todo/
 
 ## Project setup
