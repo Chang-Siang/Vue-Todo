@@ -1,58 +1,42 @@
-<template>
-  <div class="todo container">
-    <div class="row">
-      <div class="header col-12">
-        <h1 class="text-center white-text font-weight-bold">Todo</h1>
-      </div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-12">
-        <TodoInputForm @handleItemAdd="handleItemAdd" />
-      </div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-12">
-        <TodoItemSort :sortType="sortType" @handleItemSort="handleItemSort" />
-      </div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-12">
-        <div v-if="loading">Loading...</div>
-        <div v-else-if="error">An unexpected error has occurred.</div>
-        <ul class="list-group">
-          <li
-            class="list-group-item list-group-item-action"
-            v-for="item in items"
-            :key="item.id"
-          >
-            <div v-if="item.isEditing">
-              <TodoEditForm
-                v-bind="item"
-                :key="item.id"
-                @handleItemUpdate="handleItemUpdate"
-              />
-            </div>
-            <div v-else>
-              <TodoItem
-                v-bind="item"
-                :key="item.id"
-                @handleItemDel="handleItemDel"
-                @handleItemEdit="handleItemEdit"
-                @handleItemUpdate="handleItemUpdate"
-              />
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <hr />
-    <div class="col-12 alert alert-success" role="alert">
-      click to complete, double-click to edit.
-    </div>
-  </div>
+<template lang="pug">
+.todo.container
+  .row
+    .header.col
+      h1.text-center.white-text.font-weight-bold Todo
+  hr
+  .row
+    .col
+      TodoInputForm(@handleItemAdd="handleItemAdd")
+  hr
+  .row
+    .col
+      TodoItemSort(:sortType="sortType", @handleItemSort="handleItemSort")
+  hr
+  .row
+    .col
+      div(v-if="loading") Loading...
+      div(v-else-if="error") An unexpected error has occurred.
+      ul.list-group
+        li.list-group-item.list-group-item-action(
+          v-for="item in items",
+          :key="item.id"
+        )
+          div(v-if="item.isEditing")
+            TodoEditForm(
+              v-bind="item",
+              :key="item.id",
+              @handleItemUpdate="handleItemUpdate"
+            )
+          div(v-else)
+            TodoItem(
+              v-bind="item",
+              :key="item.id",
+              @handleItemDel="handleItemDel",
+              @handleItemEdit="handleItemEdit",
+              @handleItemUpdate="handleItemUpdate"
+            )
+  hr
+  .col.alert.alert-success(role="alert") click to complete, double-click to edit.
 </template>
 
 <script>

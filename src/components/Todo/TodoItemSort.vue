@@ -1,7 +1,5 @@
-<template>
-  <button class="btn btn-success" v-on:click="onItemSort">
-    Sort by {{ sortType }}
-  </button>
+<template lang="pug">
+  button.btn.btn-success(@click="onItemSort") Sort by {{ sortType }}
 </template>
 <script>
 const typesOfSort = ["asc", "desc", "time"];
