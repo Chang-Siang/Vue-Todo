@@ -20,9 +20,9 @@ export default {
   },
   methods: {
     onItemAdd() {
-      if (this.newInput.length > 0) {
+      if (this.newInput.trim()) {
         this.$emit("handleItemAdd", {
-          id: +new Date(),
+          id: Date.now(),
           title: this.newInput,
           isCompleted: false,
           isEditing: false,
