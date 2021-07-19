@@ -1,14 +1,12 @@
-<template>
-  <div class="input-group">
-    <input
-      type="text"
-      autofocus
-      autocomplete="off"
-      class="form-control"
-      v-model="item.title"
-      v-on:keydown.enter="onItemUpdate"
-    />
-  </div>
+<template lang="pug">
+.input-group
+  input.form-control(
+    type="text",
+    autofocus,
+    autocomplete="off",
+    v-model="item.title",
+    @keydown.enter="onItemUpdate"
+  )
 </template>
 <script>
 export default {

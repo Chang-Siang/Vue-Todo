@@ -1,14 +1,7 @@
-<template>
-  <div class="" v-on:dblclick="onItemEdit">
-    <div
-      :class="{ completed: item.completed }"
-      class="text-truncate"
-      v-on:click="onItemComplete"
-    >
-      {{ item.title }}
-      <button class="close" v-on:click="onItemDel">×</button>
-    </div>
-  </div>
+<template lang="pug">
+div(@dblclick="onItemEdit")
+  .text-truncate(:class="{ completed: item.completed }", @click="onItemComplete") {{ item.title }}
+    button.close(@click="onItemDel") ×
 </template>
 <script>
 export default {
