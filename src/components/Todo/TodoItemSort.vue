@@ -7,7 +7,7 @@
 const typesOfSort = ["asc", "desc", "time"];
 
 export default {
-  name: "TodoItemSprt",
+  name: "TodoItemSort",
   props: {
     sortType: String,
   },
