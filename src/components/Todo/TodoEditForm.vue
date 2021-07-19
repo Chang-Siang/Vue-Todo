@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     onItemUpdate() {
-      if (this.item.title.length > 0) {
+      if (this.item.title.trim()) {
         this.item.isEditing = false;
         this.$emit("handleItemUpdate", this.item);
       }

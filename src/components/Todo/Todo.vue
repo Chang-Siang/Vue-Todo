@@ -64,9 +64,6 @@ import TodoInputForm from "./TodoInputForm";
 import TodoEditForm from "./TodoEditForm";
 import TodoItemSort from "./TodoItemSort";
 
-const ajaxUrl = "https://my-json-server.typicode.com/Chang-Siang/demo/";
-// const ajaxUrl = "http://127.0.0.1:3020/";
-
 export default {
   name: "Todo",
   components: {
@@ -77,6 +74,7 @@ export default {
   },
   data: function () {
     return {
+      ajaxUrl: "https://my-json-server.typicode.com/Chang-Siang/demo/",
       loading: false,
       error: false,
       items: [],
@@ -85,7 +83,7 @@ export default {
   },
   methods: {
     ajaxServerItemsLoad() {
-      fetch(ajaxUrl + "posts", {
+      fetch(this.ajaxUrl + "posts", {
         method: "GET",
       })
         .then((response) => {
@@ -111,7 +109,7 @@ export default {
       const { id, title, completed } = item;
       const payload = { id, title, completed };
 
-      fetch(ajaxUrl + "posts", {
+      fetch(this.ajaxUrl + "posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,8 +131,7 @@ export default {
       const { id, title, completed } = item;
       const payload = { id, title, completed };
 
-      //作POST
-      fetch(ajaxUrl + `posts/${id}`, {
+      fetch(this.ajaxUrl + `posts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -155,7 +152,7 @@ export default {
     ajaxServerItemDelete(item) {
       const { id } = item;
 
-      fetch(ajaxUrl + `posts/${id}`, {
+      fetch(this.ajaxUrl + `posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
