@@ -1,7 +1,7 @@
 # Vue Todo-App
 
 ## Demo
-https://chang-siang.github.io/vue-todo/
+https://chang-siang.github.io/Vue-Todo/
 
 ## My-JSON-API(fake API)
 https://my-json-server.typicode.com/Chang-Siang/demo/
