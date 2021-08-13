@@ -10,22 +10,22 @@
 </template>
 <script>
 export default {
-  name: "TodoInputForm",
-  data: function () {
+  name: 'TodoInputForm',
+  data() {
     return {
-      newInput: "",
+      newInput: '',
     };
   },
   methods: {
     onItemAdd() {
       if (this.newInput.trim()) {
-        this.$emit("handleItemAdd", {
+        this.$emit('handleItemAdd', {
           id: Date.now(),
           title: this.newInput,
           isCompleted: false,
           isEditing: false,
         });
-        this.newInput = "";
+        this.newInput = '';
       }
     },
   },

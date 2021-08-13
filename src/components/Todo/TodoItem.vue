@@ -5,14 +5,14 @@ div(@dblclick="onItemEdit")
 </template>
 <script>
 export default {
-  name: "TodoItem",
+  name: 'TodoItem',
   props: {
     id: Number,
     title: String,
     completed: Boolean,
     isEditing: Boolean,
   },
-  data: function () {
+  data() {
     return {
       item: {
         id: this.id,
@@ -25,13 +25,13 @@ export default {
   methods: {
     onItemComplete() {
       this.item.completed = !this.item.completed;
-      this.$emit("handleItemUpdate", this.item);
+      this.$emit('handleItemUpdate', this.item);
     },
     onItemEdit() {
-      this.$emit("handleItemEdit", this.item);
+      this.$emit('handleItemEdit', this.item);
     },
     onItemDel() {
-      this.$emit("handleItemDel", this.item);
+      this.$emit('handleItemDel', this.item);
     },
   },
 };

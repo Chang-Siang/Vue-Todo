@@ -10,14 +10,14 @@
 </template>
 <script>
 export default {
-  name: "TodoEditForm",
+  name: 'TodoEditForm',
   props: {
     id: Number,
     title: String,
     completed: Boolean,
     isEditing: Boolean,
   },
-  data: function () {
+  data() {
     return {
       item: {
         id: this.id,
@@ -31,7 +31,7 @@ export default {
     onItemUpdate() {
       if (this.item.title.trim()) {
         this.item.isEditing = false;
-        this.$emit("handleItemUpdate", this.item);
+        this.$emit('handleItemUpdate', this.item);
       }
     },
   },

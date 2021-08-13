@@ -40,50 +40,48 @@
 </template>
 
 <script>
-import "bootstrap/dist/css/bootstrap.css";
-import "glyphicons-only-bootstrap/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'glyphicons-only-bootstrap/css/bootstrap.min.css';
 
-import TodoItem from "./TodoItem";
-import TodoInputForm from "./TodoInputForm";
-import TodoEditForm from "./TodoEditForm";
-import TodoItemSort from "./TodoItemSort";
+import TodoItem from './TodoItem';
+import TodoInputForm from './TodoInputForm';
+import TodoEditForm from './TodoEditForm';
+import TodoItemSort from './TodoItemSort';
 
 export default {
-  name: "Todo",
+  name: 'Todo',
   components: {
     TodoItem,
     TodoInputForm,
     TodoEditForm,
     TodoItemSort,
   },
-  data: function () {
+  data() {
     return {
-      ajaxUrl: "https://my-json-server.typicode.com/Chang-Siang/demo/",
+      AjaxUrl: 'https://my-json-server.typicode.com/Chang-Siang/demo/',
       loading: false,
       error: false,
       items: [],
-      sortType: "asc",
+      sortType: 'asc',
     };
   },
   methods: {
     ajaxServerItemsLoad() {
-      fetch(this.ajaxUrl + "posts", {
-        method: "GET",
+      fetch(`${this.ajaxUrl}posts`, {
+        method: 'GET',
       })
         .then((response) => {
           if (!response.ok) throw new Error(response.statusText);
           return response.json();
         })
         .then((data) => {
-          const items = data.map((item) => {
-            return Object.assign({}, item, { isEditing: false });
-          });
-          //載入資料，重新渲染並關閉讀取狀態
+          const items = data.map((item) => ({ ...item, isEditing: false }));
+          // 載入資料，重新渲染並關閉讀取狀態
           this.items = items;
           this.loading = false;
         })
         .catch((error) => {
-          //顯示錯誤訊息，並關閉讀取狀態
+          // 顯示錯誤訊息，並關閉讀取狀態
           console.error(error);
           this.error = true;
           this.loading = false;
@@ -93,10 +91,10 @@ export default {
       const { id, title, completed } = item;
       const payload = { id, title, completed };
 
-      fetch(this.ajaxUrl + "posts", {
-        method: "POST",
+      fetch(`${this.ajaxUrl}posts`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
       })
@@ -105,20 +103,20 @@ export default {
           return response.json();
         })
         .then((data) => {
-          console.log("Successfully added:", data);
+          console.log('Successfully added:', data);
         })
         .catch((error) => {
-          console.error("error:", error);
+          console.error('error:', error);
         });
     },
     ajaxServerItemUpdate(item) {
       const { id, title, completed } = item;
       const payload = { id, title, completed };
 
-      fetch(this.ajaxUrl + `posts/${id}`, {
-        method: "PUT",
+      fetch(`${this.ajaxUrl}posts/${id}`, {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
       })
@@ -127,19 +125,19 @@ export default {
           return response.json();
         })
         .then((data) => {
-          console.log("Successfully update:", data);
+          console.log('Successfully update:', data);
         })
         .catch((error) => {
-          console.error("error:", error);
+          console.error('error:', error);
         });
     },
     ajaxServerItemDelete(item) {
       const { id } = item;
 
-      fetch(this.ajaxUrl + `posts/${id}`, {
-        method: "DELETE",
+      fetch(`${this.ajaxUrl}posts/${id}`, {
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       })
         .then((response) => {
@@ -147,10 +145,10 @@ export default {
           return response.json();
         })
         .then((data) => {
-          console.log("Successfully deleted", data);
+          console.log('Successfully deleted', data);
         })
         .catch((error) => {
-          console.error("error:", error);
+          console.error('error:', error);
         });
     },
     handleItemAdd(item) {
@@ -174,17 +172,13 @@ export default {
     },
     handleItemSort(sortType) {
       this.sortType = sortType;
-      if (sortType === "asc") {
-        this.items = this.items.sort((a, b) =>
-          a.title.localeCompare(b.title, "zh-Hans-TW-u-co-stroke")
-        );
+      if (sortType === 'asc') {
+        this.items = this.items.sort((a, b) => a.title.localeCompare(b.title, 'zh-Hans-TW-u-co-stroke'));
       }
-      if (sortType === "desc") {
-        this.items = this.items.sort((a, b) =>
-          b.title.localeCompare(a.title, "zh-Hans-TW-u-co-stroke")
-        );
+      if (sortType === 'desc') {
+        this.items = this.items.sort((a, b) => b.title.localeCompare(a.title, 'zh-Hans-TW-u-co-stroke'));
       }
-      if (sortType === "time") {
+      if (sortType === 'time') {
         this.items = this.items.sort((a, b) => b.id - a.id);
       }
     },
@@ -193,13 +187,13 @@ export default {
   // console.log("beforeCreate");
   //   },
   created() {
-    console.log("created");
+    console.log('created');
   },
   //   beforeMount() {
   // console.log("beforeMount");
   //   },
   mounted() {
-    console.log("mounted");
+    console.log('mounted');
     this.loading = true;
     this.ajaxServerItemsLoad();
   },
@@ -207,7 +201,7 @@ export default {
   // console.log("beforeUpdate");
   //   },
   updated() {
-    console.log("updated");
+    console.log('updated');
   },
   //   destroyed() {
   // console.log("destroyed");
@@ -216,5 +210,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
