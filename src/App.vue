@@ -4,10 +4,10 @@
 </template>
 
 <script>
-import Todo from "./components/Todo/Todo";
+import Todo from './components/Todo/Todo';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Todo,
   },
