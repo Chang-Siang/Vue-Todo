@@ -36,17 +36,17 @@
               @handleItemUpdate="handleItemUpdate"
             )
   hr
-  .col.alert.alert-success(role="alert") click to complete, double-click to edit.
+  ._col.alert.alert-success(role="alert") click to complete, double-click to edit.
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css';
-import 'glyphicons-only-bootstrap/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "glyphicons-only-bootstrap/css/bootstrap.min.css";
 
-import TodoItem from './TodoItem.vue';
-import TodoInputForm from './TodoInputForm.vue';
-import TodoEditForm from './TodoEditForm';
-import TodoItemSort from './TodoItemSort';
+import TodoItem from "./TodoItem.vue";
+import TodoInputForm from "./TodoInputForm.vue";
+import TodoEditForm from "./TodoEditForm";
+import TodoItemSort from "./TodoItemSort";
 
 export default {
   name: "Todo",
@@ -58,17 +58,17 @@ export default {
   },
   data() {
     return {
-      ajaxUrl: 'https://my-json-server.typicode.com/Chang-Siang/demo/',
+      AjaxUrl: "https://my-json-server.typicode.com/Chang-Siang/demo/",
       loading: false,
       error: false,
       items: [],
-      sortType: 'asc',
+      sortType: "asc",
     };
   },
   methods: {
     ajaxServerItemsLoad() {
       fetch(`${this.ajaxUrl}posts`, {
-        method: 'GET',
+        method: "GET",
       })
         .then((response) => {
           if (!response.ok) throw new Error(response.statusText);
@@ -92,9 +92,9 @@ export default {
       const payload = { id, title, completed };
 
       fetch(`${this.ajaxUrl}posts`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       })
@@ -103,10 +103,10 @@ export default {
           return response.json();
         })
         .then((data) => {
-          console.log('Successfully added:', data);
+          console.log("Successfully added:", data);
         })
         .catch((error) => {
-          console.error('error:', error);
+          console.error("error:", error);
         });
     },
     ajaxServerItemUpdate(item) {
@@ -114,9 +114,9 @@ export default {
       const payload = { id, title, completed };
 
       fetch(`${this.ajaxUrl}posts/${id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       })
@@ -125,19 +125,19 @@ export default {
           return response.json();
         })
         .then((data) => {
-          console.log('Successfully update:', data);
+          console.log("Successfully update:", data);
         })
         .catch((error) => {
-          console.error('error:', error);
+          console.error("error:", error);
         });
     },
     ajaxServerItemDelete(item) {
       const { id } = item;
 
       fetch(`${this.ajaxUrl}posts/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       })
         .then((response) => {
@@ -145,10 +145,10 @@ export default {
           return response.json();
         })
         .then((data) => {
-          console.log('Successfully deleted', data);
+          console.log("Successfully deleted", data);
         })
         .catch((error) => {
-          console.error('error:', error);
+          console.error("error:", error);
         });
     },
     handleItemAdd(item) {
@@ -172,13 +172,17 @@ export default {
     },
     handleItemSort(sortType) {
       this.sortType = sortType;
-      if (sortType === 'asc') {
-        this.items = this.items.sort((a, b) => a.title.localeCompare(b.title, 'zh-Hans-TW-u-co-stroke'));
+      if (sortType === "asc") {
+        this.items = this.items.sort((a, b) =>
+          a.title.localeCompare(b.title, "zh-Hans-TW-u-co-stroke")
+        );
       }
-      if (sortType === 'desc') {
-        this.items = this.items.sort((a, b) => b.title.localeCompare(a.title, 'zh-Hans-TW-u-co-stroke'));
+      if (sortType === "desc") {
+        this.items = this.items.sort((a, b) =>
+          b.title.localeCompare(a.title, "zh-Hans-TW-u-co-stroke")
+        );
       }
-      if (sortType === 'time') {
+      if (sortType === "time") {
         this.items = this.items.sort((a, b) => b.id - a.id);
       }
     },
@@ -187,13 +191,13 @@ export default {
   // console.log("beforeCreate");
   //   },
   created() {
-    console.log('created');
+    console.log("created");
   },
   //   beforeMount() {
   // console.log("beforeMount");
   //   },
   mounted() {
-    console.log('mounted');
+    console.log("mounted");
     this.loading = true;
     this.ajaxServerItemsLoad();
   },
@@ -201,7 +205,7 @@ export default {
   // console.log("beforeUpdate");
   //   },
   updated() {
-    console.log('updated');
+    console.log("updated");
   },
   //   destroyed() {
   // console.log("destroyed");
@@ -210,5 +214,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
