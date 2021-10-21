@@ -65,6 +65,29 @@ export default {
       sortType: 'asc',
     };
   },
+  //   beforeCreate() {
+  // console.log("beforeCreate");
+  //   },
+  created() {
+    console.log('created');
+  },
+  //   beforeMount() {
+  // console.log("beforeMount");
+  //   },
+  mounted() {
+    console.log('mounted');
+    this.loading = true;
+    this.ajaxServerItemsLoad();
+  },
+  //   beforeUpdate() {
+  // console.log("beforeUpdate");
+  //   },
+  updated() {
+    console.log('updated');
+  },
+  //   destroyed() {
+  // console.log("destroyed");
+  //   },
   methods: {
     ajaxServerItemsLoad() {
       fetch(`${this.ajaxUrl}posts`, {
@@ -183,29 +206,6 @@ export default {
       }
     },
   },
-  //   beforeCreate() {
-  // console.log("beforeCreate");
-  //   },
-  created() {
-    console.log('created');
-  },
-  //   beforeMount() {
-  // console.log("beforeMount");
-  //   },
-  mounted() {
-    console.log('mounted');
-    this.loading = true;
-    this.ajaxServerItemsLoad();
-  },
-  //   beforeUpdate() {
-  // console.log("beforeUpdate");
-  //   },
-  updated() {
-    console.log('updated');
-  },
-  //   destroyed() {
-  // console.log("destroyed");
-  //   },
 };
 </script>
 
