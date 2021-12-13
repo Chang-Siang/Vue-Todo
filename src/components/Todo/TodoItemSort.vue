@@ -12,10 +12,10 @@ export default {
   methods: {
     onItemSort() {
       const indexOfSortType = typesOfSort.findIndex((value) => value === this.sortType);
-      if ((Number(indexOfSortType)) >= 2) {
-        this.$emit('handleItemSort', 'asc');
+      if ((Number(indexOfSortType) + 1) >= typesOfSort.length) {
+        this.$emit('handleItemSort', typesOfSort[0]);
       } else {
-        this.$emit('handleItemSort', typesOfSort[indexOfSortType + 1]);
+        this.$emit('handleItemSort', typesOfSort[Number(indexOfSortType) + 1]);
       }
     },
   },

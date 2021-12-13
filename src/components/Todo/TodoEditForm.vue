@@ -4,8 +4,8 @@
     type="text",
     autofocus,
     autocomplete="off",
-    v-model="item.title",
-    @keydown.enter="onItemUpdate"
+    v-model="newInput",
+    @keydown.enter="onItemUpdate()"
   )
 </template>
 <script>
@@ -19,12 +19,7 @@ export default {
   },
   data() {
     return {
-      item: {
-        id: this.id,
-        title: this.title,
-        completed: this.completed,
-        isEditing: this.isEditing,
-      },
+      newInput: this.title,
     };
   },
   methods: {
@@ -33,6 +28,16 @@ export default {
         this.item.isEditing = false;
         this.$emit('handleItemUpdate', this.item);
       }
+    },
+  },
+  computed: {
+    item() {
+      return {
+        id: this.id,
+        title: this.newInput,
+        completed: this.completed,
+        isEditing: this.isEditing,
+      };
     },
   },
 };
