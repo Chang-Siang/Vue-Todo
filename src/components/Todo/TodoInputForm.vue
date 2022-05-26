@@ -5,7 +5,7 @@
     autofocus,
     autocomplete="off",
     v-model="newInput",
-    @keydown.enter="onItemAdd"
+    @keydown.enter="onItemAdd()"
   )
 </template>
 <script>
@@ -17,10 +17,13 @@ export default {
     };
   },
   methods: {
+    getDateNow() {
+      return Date.now();
+    },
     onItemAdd() {
       if (this.newInput.trim()) {
         this.$emit('handleItemAdd', {
-          id: Date.now(),
+          id: this.getDateNow(),
           title: this.newInput,
           isCompleted: false,
           isEditing: false,

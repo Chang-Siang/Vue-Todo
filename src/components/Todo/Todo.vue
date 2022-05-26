@@ -14,8 +14,8 @@
   hr
   .row
     .col
-      div(v-if="loading") Loading...
-      div(v-else-if="error") An unexpected error has occurred.
+      div(v-if="isError") An unexpected error has occurred.
+      div(v-else-if="isLoading") isLoading...
       ul.list-group
         li.list-group-item.list-group-item-action(
           v-for="item in items",
@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css';
-import 'glyphicons-only-bootstrap/css/bootstrap.min.css';
-
+import fetch from 'cross-fetch';
 import TodoItem from './TodoItem';
 import TodoInputForm from './TodoInputForm';
 import TodoEditForm from './TodoEditForm';
 import TodoItemSort from './TodoItemSort';
+
+const ajaxUrl = 'https://my-json-server.typicode.com/Chang-Siang/demo/';
 
 export default {
   name: 'Todo',
@@ -58,16 +58,19 @@ export default {
   },
   data() {
     return {
-      AjaxUrl: 'https://my-json-server.typicode.com/Chang-Siang/demo/',
-      loading: false,
-      error: false,
+      isLoading: false,
+      isError: false,
       items: [],
       sortType: 'asc',
     };
   },
+  mounted() {
+    this.isLoading = true;
+    this.ajaxServerItemsLoad();
+  },
   methods: {
     ajaxServerItemsLoad() {
-      fetch(`${this.ajaxUrl}posts`, {
+      fetch(`${ajaxUrl}posts`, {
         method: 'GET',
       })
         .then((response) => {
@@ -78,20 +81,20 @@ export default {
           const items = data.map((item) => ({ ...item, isEditing: false }));
           // 載入資料，重新渲染並關閉讀取狀態
           this.items = items;
-          this.loading = false;
+          this.isLoading = false;
         })
         .catch((error) => {
           // 顯示錯誤訊息，並關閉讀取狀態
           console.error(error);
-          this.error = true;
-          this.loading = false;
+          this.isError = true;
+          this.isLoading = false;
         });
     },
     ajaxServerItemAdd(item) {
       const { id, title, completed } = item;
       const payload = { id, title, completed };
 
-      fetch(`${this.ajaxUrl}posts`, {
+      fetch(`${ajaxUrl}posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +116,7 @@ export default {
       const { id, title, completed } = item;
       const payload = { id, title, completed };
 
-      fetch(`${this.ajaxUrl}posts/${id}`, {
+      fetch(`${ajaxUrl}posts/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -134,7 +137,7 @@ export default {
     ajaxServerItemDelete(item) {
       const { id } = item;
 
-      fetch(`${this.ajaxUrl}posts/${id}`, {
+      fetch(`${ajaxUrl}posts/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -183,29 +186,6 @@ export default {
       }
     },
   },
-  //   beforeCreate() {
-  // console.log("beforeCreate");
-  //   },
-  created() {
-    console.log('created');
-  },
-  //   beforeMount() {
-  // console.log("beforeMount");
-  //   },
-  mounted() {
-    console.log('mounted');
-    this.loading = true;
-    this.ajaxServerItemsLoad();
-  },
-  //   beforeUpdate() {
-  // console.log("beforeUpdate");
-  //   },
-  updated() {
-    console.log('updated');
-  },
-  //   destroyed() {
-  // console.log("destroyed");
-  //   },
 };
 </script>
 

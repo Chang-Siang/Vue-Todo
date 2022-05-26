@@ -4,6 +4,8 @@
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.css';
+import 'glyphicons-only-bootstrap/css/bootstrap.min.css';
 import Todo from './components/Todo/Todo';
 
 export default {
