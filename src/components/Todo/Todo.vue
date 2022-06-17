@@ -64,9 +64,13 @@ export default {
       sortType: 'asc',
     };
   },
+  created() {
+  },
   mounted() {
     this.isLoading = true;
     this.ajaxServerItemsLoad();
+  },
+  beforeDestroy() {
   },
   methods: {
     ajaxServerItemsLoad() {

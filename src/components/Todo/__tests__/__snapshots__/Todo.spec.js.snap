@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo test lifecycle should match snapshot. 1`] = `
+<div
+  class="todo container"
+>
+  <div
+    class="row"
+  >
+    <div
+      class="header col"
+    >
+      <h1
+        class="text-center white-text font-weight-bold"
+      >
+        Todo
+      </h1>
+    </div>
+  </div>
+  <hr />
+  <div
+    class="row"
+  >
+    <div
+      class="col"
+    >
+      <todoinputform-stub />
+    </div>
+  </div>
+  <hr />
+  <div
+    class="row"
+  >
+    <div
+      class="col"
+    >
+      <todoitemsort-stub
+        sorttype="asc"
+      />
+    </div>
+  </div>
+  <hr />
+  <div
+    class="row"
+  >
+    <div
+      class="col"
+    >
+      <div>
+        isLoading...
+      </div>
+      <ul
+        class="list-group"
+      />
+    </div>
+  </div>
+  <hr />
+  <div
+    class="col alert alert-success"
+    role="alert"
+  >
+    click to complete, double-click to edit.
+  </div>
+</div>
+`;

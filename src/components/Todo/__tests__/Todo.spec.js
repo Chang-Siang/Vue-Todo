@@ -1,63 +1,118 @@
 import { shallowMount } from '@vue/test-utils';
 import flushPromises from 'flush-promises';
-// import fetch from 'cross-fetch';
+import fetch from 'cross-fetch';
 import Component from '../Todo';
 
-// jest.mock('cross-fetch');
+/* mock global */
+jest.mock('cross-fetch', () => ({
+  fetch: jest.fn(),
+}));
 
 describe('Todo', () => {
+  /* let */
   let wrapper = null;
-  // jest.useFakeTimers();
-  // jest.advanceTimersByTime(1000);
+  /* vue lifecycle */
+  let createdSpy;
+  let mountedSpy;
+  let beforeDestroySpy;
+  let initializeSpy;
+
   const fakeItems = [{
     id: 2, title: 'React', completed: false,
   }];
 
   beforeEach(() => {
-    // const mountedSpy = jest.spyOn(Component, 'mounted');
+    /* spy lifecycle */
+    createdSpy = jest.spyOn(Component, 'created');
+    mountedSpy = jest.spyOn(Component, 'mounted');
+    beforeDestroySpy = jest.spyOn(Component, 'beforeDestroy');
+    initializeSpy = jest.spyOn(Component.methods, 'ajaxServerItemsLoad').mockImplementationOnce(() => true);
+    
+    /* mount component */
     wrapper = shallowMount(Component, {
-      mocks: { fetch },
+      /* props injection */
+      propsData: {},
+      /* mocks injection */
+      mocks: {},
+      /* child component injection: shallowMount dont use this option */
+      stubs: {},
+      /* method injection */
+      methods: {},
+      /* vuex injection */
+      // store,
+      // localVue,
     });
-    // expect(mountedSpy).toHaveBeenCalled();
   });
 
   afterEach(() => {
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
     wrapper.destroy();
   });
 
-  describe('test data', () => {
-    it('should has correct loading status.', async () => {
-      // 如果正在載入，應該顯示相關訊息
-      await wrapper.setData({ isLoading: true, isError: false });
-      expect(wrapper.text()).toContain('isLoading...');
+  /* 測試生命週期是否順利執行(若執行過程中遇到錯誤使元件渲染失敗, 就不會通過測試) */
+  describe('test lifecycle', () => {
+    it('is a Vue instance.', () => {
+      expect(wrapper.isVueInstance).toBeTruthy();
+    });
 
-      // 如果載入後得到錯誤，應該顯示錯誤訊息
-      await wrapper.setData({ isLoading: false, isError: true });
-      expect(wrapper.text()).toContain('An unexpected error has occurred.');
+    it('should run created & mounted.', () => {
+      expect(createdSpy).toHaveBeenCalled();
+      expect(mountedSpy).toHaveBeenCalled();
+    });
 
-      // 不太可能同時 isLoading & isError，但若真的發生，應該只顯示錯誤訊息
-      await wrapper.setData({ isLoading: true, isError: true });
-      expect(wrapper.text()).toContain('An unexpected error has occurred.');
+    /* 呼叫 initialize 進行開始載入資料 */
+    it('mounted: should call `ajaxServerItemsLoad`.', () => {
+      expect(initializeSpy).toHaveBeenCalled();
+    });
+
+    it('should run beforeDestroy.', () => {
+      wrapper.destroy();
+      expect(beforeDestroySpy).toHaveBeenCalled();
+    });
+
+    it('should match snapshot.', () => {
+      expect(wrapper.element).toMatchSnapshot();
     });
   });
 
-  describe('test methods: ajaxServerItemsLoad', () => {
-    it('should return success info.', async () => {
-      // fetch = jest.fn(() => Promise.resolve(fakeItems));
-      fetch.mockReturnValue(() => Promise.resolve(fakeItems));
+  describe('test data', () => {
+    describe('isLoading & isError', () => {
+      describe.each`
+      isLoading | isError  | expectedToContain                      |
+      ${true}   | ${false} | ${'isLoading...'}                      |   
+      ${false}  | ${true}  | ${'An unexpected error has occurred.'} |             
+      ${true}   | ${true}  | ${'An unexpected error has occurred.'} |             
+      `('isLoading = $isLoading, isError = $isError, msg = $expectedToContain', ({
+        isLoading, isError, expectedToContain,
+      }) => {
+        it('should have correct loading text.', async () => {
+          await wrapper.setData({ isLoading: isLoading, isError: isError });
+          expect(wrapper.text()).toContain(expectedToContain);
+        });
+      });
+    });
+  });
 
-      wrapper.vm.ajaxServerItemsLoad();
-      await flushPromises();
-      expect(wrapper.vm.items).toEqual([{
-        id: fakeItems[0].id,
-        title: fakeItems[0].title,
-        completed: fakeItems[0].completed,
-        isEditing: false,
-      }]);
+  describe('test methods', () => {
+    describe('ajaxServerItemsLoad', () => {
+      /* need to set test case as async function when using flushPromises */
+      it('should return success info.', async () => {
+        /* set API return value */
+        fetch.mockImplementationOnce(() => Promise.resolve(fakeItems));
+        wrapper.vm.ajaxServerItemsLoad();
 
-      // const { id, title } = fakeItem;
-      // const payload = { id, title };
-      // expect(wrapper.vm.ajaxServerItemsLoad(payload)).toEqual(payload);
+        /* wait for API response */
+        await flushPromises();
+
+        /* expect */
+        expect(wrapper.vm.items).toEqual([{
+          id: fakeItems[0].id,
+          title: fakeItems[0].title,
+          completed: fakeItems[0].completed,
+          isEditing: false,
+        }]);
+      });
     });
   });
 });
