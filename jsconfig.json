@@ -1,0 +1,17 @@
+{
+  "include": [
+    "src/**/*.vue",
+    "src/**/*.js"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": [
+      "ES2021.String"
+    ],
+    "paths": {
+      "components/*": [
+        "src/components/*"
+      ]
+    }
+  }
+}
