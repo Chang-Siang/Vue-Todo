@@ -1,0 +1,38 @@
+{
+    /* editor */
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    /* eslint */
+    "eslint.validate": [
+      "javascript",
+      "vue"
+    ],
+    /* vetur */
+    "vetur.validation.template": false,
+    /* prettier */
+    "prettier.singleQuote": true,
+    "prettier.semi": true,
+    "prettier.printWidth": 100,
+    "prettier.trailingComma": "es5",
+    "prettier.tabWidth": 2,
+    /* i18n-ally */
+    "i18n-ally.enabledFrameworks": [
+      "vue"
+    ],
+    "i18n-ally.localesPaths": [
+      "src/locales",
+    ],
+    "i18n-ally.annotationDelimiter": ".",
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.sortKeys": true,
+    "i18n-ally.sourceLanguage": "en",
+    "i18n-ally.keepFulfilled": true,
+    "i18n-ally.editor.preferEditor": true,
+    "i18n-ally.translate.saveAsCandidates": true,
+    "i18n-ally.indent": 2,
+    "i18n-ally.keysInUse": [
+    ],
+    "i18n-ally.annotationInPlace": false,
+    "i18n-ally.autoDetection": false,
+  }
