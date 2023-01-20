@@ -46,9 +46,7 @@ exports[`Todo test lifecycle should match snapshot. 1`] = `
     <div
       class="col"
     >
-      <div>
-        isLoading...
-      </div>
+      <!---->
       <ul
         class="list-group"
       />

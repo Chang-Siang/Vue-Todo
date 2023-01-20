@@ -13,7 +13,6 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "core-js": "^3.6.5",
-    "cross-fetch": "^3.1.4",
     "flush-promises": "^1.0.2",
     "glyphicons-only-bootstrap": "^1.0.1",
     "vue": "^2.6.11"

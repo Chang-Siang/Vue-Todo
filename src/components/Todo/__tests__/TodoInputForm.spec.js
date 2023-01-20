@@ -55,7 +55,6 @@ describe('TodoInputForm', () => {
       const now = setMethodGetDateNow();
       const dataNewInput = await setDataNewInput('Vue');
       wrapper.vm.onItemAdd();
-      console.log('spy :>> ', spy.mock);
       expect(wrapper.emitted().handleItemAdd[0]).toEqual([{
         id: now,
         title: dataNewInput,

@@ -1,12 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 import flushPromises from 'flush-promises';
-import fetch from 'cross-fetch';
 import Component from '../Todo';
 
 /* mock global */
-jest.mock('cross-fetch', () => ({
-  fetch: jest.fn(),
-}));
+global.fetch = jest.fn(() => Promise.resolve({}));
 
 describe('Todo', () => {
   /* let */
@@ -18,7 +15,7 @@ describe('Todo', () => {
   let initializeSpy;
 
   const fakeItems = [{
-    id: 2, title: 'React', completed: false,
+    id: 2, title: 'Vue2', completed: false,
   }];
 
   beforeEach(() => {
@@ -27,7 +24,7 @@ describe('Todo', () => {
     mountedSpy = jest.spyOn(Component, 'mounted');
     beforeDestroySpy = jest.spyOn(Component, 'beforeDestroy');
     initializeSpy = jest.spyOn(Component.methods, 'ajaxServerItemsLoad').mockImplementationOnce(() => true);
-    
+
     /* mount component */
     wrapper = shallowMount(Component, {
       /* props injection */
@@ -79,15 +76,15 @@ describe('Todo', () => {
   describe('test data', () => {
     describe('isLoading & isError', () => {
       describe.each`
-      isLoading | isError  | expectedToContain                      |
-      ${true}   | ${false} | ${'isLoading...'}                      |   
-      ${false}  | ${true}  | ${'An unexpected error has occurred.'} |             
-      ${true}   | ${true}  | ${'An unexpected error has occurred.'} |             
-      `('isLoading = $isLoading, isError = $isError, msg = $expectedToContain', ({
+      isLoading | isError  | expectedToContain                      
+      ${true}   | ${false} | ${'isLoading...'}                       
+      ${false}  | ${true}  | ${'An unexpected error has occurred.'}           
+      ${true}   | ${true}  | ${'An unexpected error has occurred.'}           
+      `('isLoading = "$isLoading", isError = "$isError", msg = "$expectedToContain".', ({
         isLoading, isError, expectedToContain,
       }) => {
         it('should have correct loading text.', async () => {
-          await wrapper.setData({ isLoading: isLoading, isError: isError });
+          await wrapper.setData({ isLoading, isError });
           expect(wrapper.text()).toContain(expectedToContain);
         });
       });
@@ -99,7 +96,11 @@ describe('Todo', () => {
       /* need to set test case as async function when using flushPromises */
       it('should return success info.', async () => {
         /* set API return value */
-        fetch.mockImplementationOnce(() => Promise.resolve(fakeItems));
+        global.fetch.mockImplementationOnce(() => Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => fakeItems,
+        }));
         wrapper.vm.ajaxServerItemsLoad();
 
         /* wait for API response */
