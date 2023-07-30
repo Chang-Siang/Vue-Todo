@@ -45,7 +45,7 @@ import TodoInputForm from './TodoInputForm';
 import TodoEditForm from './TodoEditForm';
 import TodoItemSort from './TodoItemSort';
 
-const ajaxUrl = 'https://my-json-server.typicode.com/Chang-Siang/demo';
+const ajaxUrl = 'https://my-json-server.typicode.com/siang-chang/json-server-demo';
 
 export default {
   name: 'Todo',
